@@ -1,0 +1,12 @@
+{
+  "id":3,
+  "hostname": "机器3",
+  "ip": "127.0.0.3",
+  "hostgroup": "2",
+  "system": "",
+  "cpunum": "",
+  "memory": "",
+  "disk": "",
+  "comment": "新增"
+}
+
