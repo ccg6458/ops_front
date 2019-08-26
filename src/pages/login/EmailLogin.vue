@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     login () {
-      if (this.loginForm.email === '' || this.loginForm.code === '') {
+      if (this.loginForm.email.trim().length === 0 || this.loginForm.code.trim().length === 0) {
         alert('请输入登陆信息')
         return
       }

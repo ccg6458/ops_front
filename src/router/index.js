@@ -6,6 +6,7 @@ import EmailLogin from '@/pages/login/EmailLogin'
 import BusinessList from '@/pages/business/BusinessList'
 import TaskList from '@/pages/task/TaskList'
 import Loglist from '@/pages/log/LogList'
+import WorkOrderList from '@/pages/workorder/WorkOrderList'
 
 Vue.use(Router)
 
@@ -13,11 +14,6 @@ export default new Router({
   routes: [
     {
       path: '/login',
-      name: 'EmailLogin',
-      component: EmailLogin
-    },
-    {
-      path: '/emaillogin',
       name: 'EmailLogin',
       component: EmailLogin
     },
@@ -40,6 +36,11 @@ export default new Router({
       path: '/task',
       name: 'tasklist',
       component: TaskList
+    },
+    {
+      path: '/order',
+      name: 'workorderlist',
+      component: WorkOrderList
     },
     {
       path: '/audit',

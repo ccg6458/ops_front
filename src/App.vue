@@ -24,4 +24,10 @@ export default {
   color: #2c3e50;
   margin-top: 10px;
 }
+.el-tooltip__popper.is-dark{
+  background: #f5f7fa ;
+  color: #000000 ;
+  width: 400px;
+}
+
 </style>

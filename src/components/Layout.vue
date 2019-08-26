@@ -3,15 +3,16 @@
     <el-container>
       <el-header  v-if="showside">
         <el-row>
-          <el-col :span="3">标题待定</el-col>
-          <el-col :span="20">测试</el-col>
+          <el-col :span="2">标题待定</el-col>
+          <el-col :span="21">测试</el-col>
           <el-col :span="1" class="right"><el-button type="danger" size="mini" @click="logout">登出</el-button></el-col>
-        </el-row>      </el-header>
+        </el-row>
+      </el-header>
       <el-container>
-        <el-aside  v-if="showside" width="150px">
-          <el-menu  :default-openeds="['1']">
+        <el-aside  v-if="showside" width="100px">
+          <el-menu  :default-openeds="['1']" >
           <router-link v-for="side in sidetable" v-bind:key="side.id" :to="side.routelink">
-            <el-menu-item :index="side.index">
+            <el-menu-item  :index="side.index">
               <template ><i :class="side.icon"></i>{{side.tab}}</template>
             </el-menu-item>
           </router-link>
@@ -80,7 +81,6 @@ export default {
 
 <style scoped>
   .el-header{
-
     text-align: left;
     background-color: #B3C0D1;
     line-height: 60px;
@@ -96,6 +96,10 @@ export default {
     line-height: 30px;
     height: 30px !important;
 
+  }
+  .el-menu-item {
+    padding-left: 0px !important;
+    padding-right: 10px;
   }
 
 </style>
