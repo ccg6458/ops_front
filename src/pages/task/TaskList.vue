@@ -58,6 +58,13 @@
       </el-table-column>
       <el-table-column
         align="center"
+        sortable
+        prop="comment"
+        width="120"
+        label="备注">
+      </el-table-column>
+      <el-table-column
+        align="center"
         label="操作">
         <template slot-scope="scope">
           <el-button

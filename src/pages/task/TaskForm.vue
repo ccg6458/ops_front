@@ -6,6 +6,9 @@
         <el-option v-for="business in business_list" v-bind:key="business.id" :label="business.name" :value="business.id"></el-option>
       </el-select>
     </el-form-item>
+    <el-form-item label="备注">
+      <el-input v-model="taskform.comment" placeholder="便于查找"></el-input>
+    </el-form-item>
     <el-form-item label="执行周期">
       <el-input v-model="taskform.schedule"></el-input>
     </el-form-item>
