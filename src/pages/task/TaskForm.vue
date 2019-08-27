@@ -10,7 +10,7 @@
       <el-input v-model="taskform.schedule"></el-input>
     </el-form-item>
     <el-form-item label="执行命令">
-      <el-input v-model="taskform.shell"></el-input>
+      <el-input type="textarea" v-model="taskform.shell"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button v-if="this.action=='create'" type="primary" @click="Create">创建</el-button>

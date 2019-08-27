@@ -6,7 +6,7 @@
     <el-dialog
       :title="formname"
       :visible.sync="TaskFormShow"
-      width="35%"
+      width="60%"
     >
       <task-form @change_dialogVisible="changeTaskFormShow" :taskform="taskform" :action="action" :business_list="business_list">test</task-form>
     </el-dialog>
@@ -44,6 +44,7 @@
         label="执行周期">
       </el-table-column>
       <el-table-column
+        :show-overflow-tooltip="true"
         align="center"
         prop="shell"
         width="200"
