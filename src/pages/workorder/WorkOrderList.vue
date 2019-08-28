@@ -84,6 +84,13 @@
         label="执行状态">
       </el-table-column>
       <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
+        prop="result"
+        width="100"
+        label="执行结果">
+      </el-table-column>
+      <el-table-column
         v-if="false"
         align="center"
         prop="comment"
