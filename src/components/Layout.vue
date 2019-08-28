@@ -3,8 +3,8 @@
     <el-container>
       <el-header  v-if="showside">
         <el-row>
-          <el-col :span="2">标题待定</el-col>
-          <el-col :span="21">测试</el-col>
+          <el-col :span="2">没想好叫什么</el-col>
+          <el-col :span="21" style="margin-bottom: 5px;"></el-col>
           <el-col :span="1" class="right"><el-button type="danger" size="mini" @click="logout">登出</el-button></el-col>
         </el-row>
       </el-header>

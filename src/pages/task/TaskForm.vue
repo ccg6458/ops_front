@@ -10,7 +10,7 @@
       <el-input v-model="taskform.comment" placeholder="便于查找"></el-input>
     </el-form-item>
     <el-form-item label="执行周期">
-      <el-input v-model="taskform.schedule"></el-input>
+      <el-input v-model="taskform.schedule" placeholder="与crontab格式相同"></el-input>
     </el-form-item>
     <el-form-item label="执行命令">
       <el-input type="textarea" v-model="taskform.shell" placeholder="如果程序要跑很久,请放在后台跑,即在命令末尾加 > /dev/null  2>&1 & 或者自定义日志名称"></el-input>

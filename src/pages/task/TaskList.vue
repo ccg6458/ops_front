@@ -18,10 +18,6 @@
       :default-sort = "{prop: 'id'}"
       style="width: 100%">
       <el-table-column
-        type="selection"
-        width="55">
-      </el-table-column>
-      <el-table-column
         v-if="false"
         align="center"
         sortable

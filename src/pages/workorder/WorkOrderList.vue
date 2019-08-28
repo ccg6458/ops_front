@@ -221,12 +221,14 @@ export default {
     text-align: center;
 
   }
+
   .el-table-column{
     text-align: center;
   }
   .el-dialog__body{
     padding-left: 10px !important;
     padding-right: 10px;
+    overflow: auto
   }
   .el-tooltip__popper.is-dark{
     background: #f5f7fa !important;
