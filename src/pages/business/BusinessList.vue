@@ -8,10 +8,6 @@
       :default-sort = "{prop: 'id'}"
       style="width: 100%">
       <el-table-column
-        type="selection"
-        width="55">
-      </el-table-column>
-      <el-table-column
         v-if="false"
         align="center"
         sortable
@@ -31,20 +27,6 @@
         prop="host"
         width="300"
         label="执行主机">
-      </el-table-column>
-      <el-table-column
-        align="center"
-        label="操作">
-        <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="primary"
-            @click="getForm(scope.$index,scope.row)">编辑</el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            @click="deleteUser(scope.$index, scope.row)">删除</el-button>
-        </template>
       </el-table-column>
     </el-table>
   </div>
