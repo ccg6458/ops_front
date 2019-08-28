@@ -172,6 +172,7 @@ export default {
       this.WorkOrderFormShow = true
     },
     changeWorkOrderShow () {
+      this.getData()
       this.WorkOrderFormShow = false
     },
     changeAuditOrderShow () {
