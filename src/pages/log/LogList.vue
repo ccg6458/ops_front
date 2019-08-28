@@ -5,12 +5,8 @@
       stripe
       :border="true"
       height="480"
-      :default-sort = "{prop: 'id', order: 'descending'}"
+      :default-sort = "{prop: 'create_time', order: 'descending'}"
       style="width: 100%">
-      <el-table-column
-        type="selection"
-        width="55">
-      </el-table-column>
       <el-table-column
         v-if="false"
         align="center"
