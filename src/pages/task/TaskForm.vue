@@ -41,8 +41,10 @@ export default {
       let that = this
       this.$axios.post(this.$domain + '/task', this.$qs.stringify(this.taskform))
         .then(function (res) {
-          if (res.status === 200) {
+          if (res.data.code === 0) {
             that.close_form()
+          } else {
+            alert(res.data.message)
           }
         })
     },
@@ -50,8 +52,10 @@ export default {
       let that = this
       this.$axios.put(this.$domain + '/task/' + this.taskform.id, this.$qs.stringify(this.taskform))
         .then(function (res) {
-          if (res.status === 200) {
+          if (res.data.code === 0) {
             that.close_form()
+          } else {
+            alert(res.data.message)
           }
         }).catch(function () {
         })
