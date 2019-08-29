@@ -25,7 +25,7 @@
       <el-table-column
         align="center"
         prop="behavior"
-        width="730"
+        width="720"
         label="用户行为">
       </el-table-column>
       <el-table-column
