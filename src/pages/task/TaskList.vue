@@ -15,7 +15,7 @@
       stripe
       :border="true"
       height="480"
-      :default-sort = "{prop: 'id'}"
+      :default-sort = "{prop: 'create_time', order: 'descending'}"
       style="width: 100%">
       <el-table-column
         v-if="false"
@@ -49,7 +49,7 @@
       <el-table-column
         align="center"
         prop="create_time"
-        width="250"
+        width="160"
         label="创建时间">
       </el-table-column>
       <el-table-column

@@ -19,19 +19,19 @@
         align="center"
         sortable
         prop="username"
-        width="150"
+        width="240"
         label="用户名称">
       </el-table-column>
       <el-table-column
         align="center"
         prop="behavior"
-        width="300"
+        width="730"
         label="用户行为">
       </el-table-column>
       <el-table-column
         align="center"
         prop="create_time"
-        width="300"
+        width="160"
         label="操作时间">
       </el-table-column>
     </el-table>

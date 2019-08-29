@@ -44,7 +44,7 @@
         align="center"
         sortable
         prop="name"
-        width="100"
+        width="200"
         label="标题">
       </el-table-column>
       <el-table-column
@@ -58,7 +58,7 @@
       <el-table-column
         align="center"
         prop="create_time"
-        width="240"
+        width="160"
         label="创建时间">
       </el-table-column>
       <el-table-column
@@ -81,7 +81,7 @@
         :show-overflow-tooltip="true"
         align="center"
         prop="result"
-        width="100"
+        width="150"
         label="执行结果">
       </el-table-column>
       <el-table-column
