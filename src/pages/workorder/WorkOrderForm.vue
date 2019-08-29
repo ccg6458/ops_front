@@ -18,7 +18,8 @@ sql之间以英文分号隔开,
       </el-input>
     </el-form-item>
     <el-form-item>
-      <el-button  type="primary" @click="Create">提交工单</el-button>
+      <el-button  type="primary" @click="Create" v-if="action==='create'">提交工单</el-button>
+      <el-button  type="primary" @click="Update" v-if="action==='update'">修改工单</el-button>
 
       <el-button @click="close_form">取消</el-button>
     </el-form-item>
@@ -50,26 +51,24 @@ export default {
   },
   methods: {
     Create () {
-      if (this.workorderform.sql.indexOf('#') !== -1 ||
-        this.workorderform.sql.indexOf('/') !== -1) {
-        alert('请删除注释行')
-        return
-      }
-
       let that = this
       this.$axios.post(this.$domain + '/work', this.$qs.stringify(this.workorderform))
         .then(function (res) {
           if (res.data.code === 0) {
             that.close_form()
-          } else { alert(res.data.message) }
+          } else {
+            alert(res.data.message)
+          }
         })
     },
     Update () {
       let that = this
-      this.$axios.put(this.$domain + '/task/' + this.taskform.id, this.$qs.stringify(this.taskform))
+      this.$axios.put(this.$domain + '/work/edit', this.$qs.stringify(this.workorderform))
         .then(function (res) {
-          if (res.status === 200) {
+          if (res.data.code === 0) {
             that.close_form()
+          } else {
+            alert(res.data.message)
           }
         }).catch(function () {
         })

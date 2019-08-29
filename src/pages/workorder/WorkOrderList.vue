@@ -1,27 +1,29 @@
 <template>
-  <div >
-    <el-row  style="text-align: left;padding-bottom: 5px;">
-      <el-button type="primary"  @click="createTask">新建sql工单</el-button>
+  <div>
+    <el-row style="text-align: left;padding-bottom: 5px;">
+      <el-button type="primary" @click="createOrder">新建sql工单</el-button>
     </el-row>
     <el-dialog
       :title="formname"
       :visible.sync="WorkOrderFormShow"
       width="50%"
     >
-      <work-order-form @change_dialogVisible="changeWorkOrderShow" :workorderform="workorderform"  >test</work-order-form>
+      <work-order-form @change_dialogVisible="changeWorkOrderShow" :workorderform="workorderform" :action="action">test</work-order-form>
     </el-dialog>
     <el-dialog
       :title="auditname"
       :visible.sync="AuditOrderShow"
       width="40%"
     >
-      <audit-order @change_AuditOrderShow="changeAuditOrderShow" :sql="auditSql" :id="auditId" :comment="auditComment">test</audit-order>
+      <audit-order @change_AuditOrderShow="changeAuditOrderShow" :sql="auditSql" :id="auditId" :comment="auditComment">
+        test
+      </audit-order>
     </el-dialog>
     <el-table
       :data="WorkOrderTable"
       stripe
       :border="true"
-      :default-sort = "{prop: 'create_time', order: 'descending'}"
+      :default-sort="{prop: 'create_time', order: 'descending'}"
       style="width: 100%">
       <el-table-column
         v-if="false"
@@ -45,19 +47,11 @@
         width="100"
         label="标题">
       </el-table-column>
-      <!--<el-table-column-->
-        <!--align="center"-->
-        <!--sortable-->
-        <!--prop="type"-->
-        <!--width="100"-->
-        <!--:formatter="type_msg"-->
-        <!--label="工单类型">-->
-      <!--</el-table-column>-->
       <el-table-column
         :show-overflow-tooltip="true"
         align="center"
         prop="sql"
-        width="200"
+        width="160"
         type="text"
         label="sql详情">
       </el-table-column>
@@ -98,16 +92,28 @@
         label="备注">
       </el-table-column>
       <el-table-column
-        v-if="this.super===1"
         align="center"
         label="操作"
-        >
-        <template slot-scope="scope" >
+      >
+        <template slot-scope="scope">
           <el-button
-            v-if="scope.row.audit===0"
+            v-if="showEditButton(scope.$index,scope.row)"
             size="mini"
             type="primary"
-            @click="confirmAudit(scope.$index,scope.row)">审核</el-button>
+            @click="EditOrder(scope.$index,scope.row)">编辑
+          </el-button>
+          <el-button
+            v-if="showAuditButton(scope.$index,scope.row)"
+            size="mini"
+            type="primary"
+            @click="confirmAudit(scope.$index,scope.row)">审核
+          </el-button>
+          <el-button
+            v-if="showExecuteButton(scope.$index,scope.row)"
+            size="mini"
+            type="primary"
+            @click="executeAgain(scope.$index,scope.row)">再次执行
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -140,29 +146,6 @@ export default {
     }
   },
   methods: {
-    deleteTask (index, row) {
-      let that = this
-      this.$axios.delete(this.$domain + '/task/' + row.id)
-        .then(function (res) {
-          that.getData()
-        }).catch(function () {
-        })
-    },
-    getWorkOrderForm (index, row) {
-      this.WorkOrderFormShow = true
-      this.action = 'update'
-      this.formname = '编辑任务'
-      let that = this
-      this.$axios.get(this.$domain + '/task/' + row.id)
-        .then(function (res) {
-          that.workorderform = res.data.data
-        }).catch(function () {
-        })
-      this.$axios.get(this.$domain + '/business/only_id')
-        .then(function (res) {
-          that.business_list = res.data.data
-        })
-    },
     getData () {
       let that = this
       this.$axios.get(this.$domain + '/work')
@@ -171,12 +154,23 @@ export default {
           that.super = res.data.data['super']
         })
     },
-    createTask () {
+    createOrder () {
       this.workorderform = {}
       this.form = {}
       this.action = 'create'
       this.formname = '新建工单'
       this.WorkOrderFormShow = true
+    },
+    EditOrder (index, row) {
+      this.WorkOrderFormShow = true
+      this.action = 'update'
+      this.formname = '编辑工单'
+      let that = this
+      this.$axios.get(this.$domain + '/work/item?id=' + row.id)
+        .then(function (res) {
+          that.workorderform = res.data.data
+        }).catch(function () {
+        })
     },
     changeWorkOrderShow () {
       this.getData()
@@ -194,17 +188,23 @@ export default {
       this.auditname = 'sql审核'
       this.auditComment = row.comment
     },
-    type_msg (row) {
-      let type = row.type
-      if (type === 1) {
-        return 'sql执行'
-      } else { return '其他' }
+    executeAgain (index, row) {
+      let that = this
+      this.$axios.put(this.$domain + '/work/execute', this.$qs.stringify({'id': row.id}))
+        .then(function (res) {
+          alert(res.data.message)
+          that.getData()
+        })
     },
     audit_msg (row) {
       let audit = row.audit
       if (audit === 0) {
         return '未审核'
-      } else if (audit === 1) { return '通过' } else if (audit === 2) { return '自动审核' }
+      } else if (audit === 1) {
+        return '通过'
+      } else if (audit === 2) {
+        return '自动审核'
+      }
     },
     finish_msg (row) {
       let finish = row.finish
@@ -216,6 +216,27 @@ export default {
     },
     filterAudit (value, row) {
       return row.audit === value
+    },
+    showEditButton (index, row) {
+      if (row.finish === 0) {
+        return true
+      } else {
+        return false
+      }
+    },
+    showAuditButton (index, row) {
+      if (this.super === 1 && row.audit === 0) {
+        return true
+      } else {
+        return false
+      }
+    },
+    showExecuteButton (index, row) {
+      if (this.super === 1 && row.finish === 0 && row.audit === 1) {
+        return true
+      } else {
+        return false
+      }
     }
   },
   mounted () {
@@ -225,20 +246,22 @@ export default {
 </script>
 
 <style scoped>
-  .el-table{
+  .el-table {
     text-align: center;
 
   }
 
-  .el-table-column{
+  .el-table-column {
     text-align: center;
   }
-  .el-dialog__body{
+
+  .el-dialog__body {
     padding-left: 10px !important;
     padding-right: 10px;
     overflow: auto
   }
-  .el-tooltip__popper.is-dark{
+
+  .el-tooltip__popper.is-dark {
     background: #f5f7fa !important;
     color: #66b1ff !important;
     width: 300px !important;

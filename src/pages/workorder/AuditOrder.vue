@@ -22,7 +22,7 @@ export default {
   methods: {
     pass () {
       let that = this
-      this.$axios.put(this.$domain + '/work/audit', this.$qs.stringify({'auditid': this.$props.id}))
+      this.$axios.put(this.$domain + '/work/audit', this.$qs.stringify({'id': this.$props.id}))
         .then(function (res) {
           if (res.data.code === 0) {
             that.$emit('change_AuditOrderShow')
