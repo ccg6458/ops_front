@@ -46,7 +46,7 @@ export default {
       let that = this
       this.$axios.delete(this.$domain + '/business/' + row.id)
         .then(function (res) {
-          that.getdata()
+          that.getAllData()
         }).catch(function () {
         })
     },
@@ -58,7 +58,7 @@ export default {
         }).catch(function () {
         })
     },
-    getdata () {
+    getAllData () {
       let that = this
       this.$axios.get(this.$domain + '/business')
         .then(function (res) {
@@ -68,7 +68,7 @@ export default {
 
   },
   mounted () {
-    this.getdata()
+    this.getAllData()
   }
 }
 </script>

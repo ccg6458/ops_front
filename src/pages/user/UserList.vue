@@ -125,7 +125,7 @@ export default {
       let that = this
       this.$axios.delete(this.$domain + '/test/' + row.id)
         .then(function (res) {
-          that.getdata()
+          that.getAllData()
         }).catch(function () {
         })
     },
@@ -142,11 +142,11 @@ export default {
       this.multipleSelection = val
     },
     changeFormShow () {
-      this.getdata()
+      this.getAllData()
       this.grantVisible = false
     },
     changeUserShow () {
-      this.getdata()
+      this.getAllData()
       this.dialogVisible = false
     },
     createAsset () {
@@ -187,7 +187,7 @@ export default {
         }).catch(function () {
         })
     },
-    getdata () {
+    getAllData () {
       let that = this
       this.$axios.get(this.$domain + '/test/all')
         .then(function (res) {
@@ -231,7 +231,7 @@ export default {
 
   },
   mounted () {
-    this.getdata()
+    this.getAllData()
   }
 }
 </script>

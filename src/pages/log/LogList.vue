@@ -35,6 +35,16 @@
         label="操作时间">
       </el-table-column>
     </el-table>
+    <el-pagination
+      :background="true"
+      @size-change="changeSize"
+      @current-change="curretPage"
+      :current-page="pageNum"
+      :page-sizes="[10, 20, 50, 100]"
+      :page-size="pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="totalCount">
+    </el-pagination>
   </div>
 </template>
 
@@ -44,21 +54,40 @@ export default {
   name: 'LogList',
   data () {
     return {
-      logData: []
+      logData: [],
+      totalCount: 100,
+      pageNum: 1,
+      pageSize: 10
     }
   },
   methods: {
-    getdata () {
+    getAllData () {
       let that = this
       this.$axios.get(this.$domain + '/log')
         .then(function (res) {
           that.logData = res.data.data
         })
+    },
+    getDataByPage () {
+      let that = this
+      this.$axios.get(this.$domain + '/log?pageSize=' + this.pageSize + '&pageNum=' + this.pageNum)
+        .then(function (res) {
+          that.totalCount = res.data.data['total']
+          that.logData = res.data.data['log']
+        })
+    },
+    changeSize (val) {
+      this.pageSize = val
+      this.getDataByPage()
+    },
+    curretPage (val) {
+      this.pageNum = val
+      this.getDataByPage()
     }
 
   },
   mounted () {
-    this.getdata()
+    this.getDataByPage()
   }
 }
 </script>
